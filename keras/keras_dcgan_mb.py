@@ -20,21 +20,20 @@ np.random.RandomState(0)
 tf.set_random_seed(0)
 
 config = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
-# config = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=False))
 session = tf.Session(config=config)
 tensorflow_backend.set_session(session)
 
-# root_dir = "/home/takusub/PycharmProjects/Samples/dcgan/kill_me_baby_datasets/"
 root_dir = "/Users/berry/berry/python/exercise_git/keras/"
-
+input_img_dir = "mb_resized_images_cp"
+save_dir = "generated_images/20180714_ISSEY_MIYAKE_femme/"
 
 class DCGAN():
     def __init__(self):
 
         self.class_names = os.listdir(root_dir)
 
-        self.shape = (128, 128, 3)
-        # self.shape = (275, 183, 3)
+        # self.shape = (128, 128, 3)
+        self.shape = (275, 183, 3)
         # self.shape = (1024, 683, 3)
         self.z_dim = 100
 
@@ -167,7 +166,7 @@ class DCGAN():
                 end = np.expand_dims(check_noise[1], axis=0)
                 resultImage = self.visualizeInterpolation(start=start, end=end)
                 # cv2.imwrite("images/latent/" + "latent_{}.png".format(iteration), resultImage)
-                cv2.imwrite("generated_images/20180714_ISSEY_MIYAKE_femme/" + "latent_{}.png".format(iteration), resultImage)
+                cv2.imwrite(save_dir + "latent_{}.png".format(iteration), resultImage)
                 if iteration % model_interval == 0:
                     # self.generator.save("ganmodels/dcgan-{}-iter.h5".format(iteration))
                     self.generator.save("mb_dcgan-{}-iter.h5".format(iteration))
@@ -186,8 +185,7 @@ class DCGAN():
                 axs[i, j].imshow(gen_imgs[cnt, :, :, :])
                 axs[i, j].axis('off')
                 cnt += 1
-        fig.savefig('generated_images/20180714_ISSEY_MIYAKE_femme/%d.png' % iteration)
-        # fig.savefig('images/gen_imgs/kill_me_%d.png' % iteration)
+        fig.savefig(save_dir + '%d.png' % iteration)
 
         plt.close()
 
@@ -203,7 +201,7 @@ class DCGAN():
         #         hot_cl_name = self.get_class_one_hot(cl_name)
         #         labels.append(hot_cl_name)
         for cl_name in self.class_names:
-            if cl_name == "mb_resized_images_cp":
+            if cl_name == input_img_dir:
                 img_names = os.listdir(os.path.join(root_dir, cl_name))
                 for img_name in img_names:
                     img_paths.append(os.path.abspath(os.path.join(root_dir, cl_name, img_name)))
