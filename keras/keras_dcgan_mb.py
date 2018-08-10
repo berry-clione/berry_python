@@ -33,7 +33,8 @@ class DCGAN():
         self.class_names = os.listdir(root_dir)
 
         # self.shape = (128, 128, 3)
-        self.shape = (275, 183, 3)
+        # self.shape = (275, 183, 3)
+        self.shape = (276, 184, 3)
         # self.shape = (1024, 683, 3)
         self.z_dim = 100
 
@@ -61,8 +62,10 @@ class DCGAN():
 
         model = Sequential()
 
-        model.add(Dense(128 * 32 * 32, activation="relu", input_shape=noise_shape))
-        model.add(Reshape((32, 32, 128)))
+        # model.add(Dense(128 * 32 * 32, activation="relu", input_shape=noise_shape))
+        model.add(Dense(128 * 46 * 69, activation="relu", input_shape=noise_shape))
+        # model.add(Reshape((32, 32, 128)))
+        model.add(Reshape((69, 46, 128)))
         model.add(BatchNormalization(momentum=0.8))
         model.add(UpSampling2D())
         model.add(Conv2D(128, kernel_size=3, padding="same"))
@@ -84,7 +87,7 @@ class DCGAN():
 
     def build_discriminator(self):
         img_shape = self.shape
-        # print(img_shape)
+        print("-------------", img_shape)
 
         model = Sequential()
 
