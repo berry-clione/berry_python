@@ -6,3 +6,5 @@
 /keras/crawled_images/*
 /keras/mb_resized_images_cp/*
 /keras/mb_dcgan-0-iter.h5
+/SOM/training_data/*
+/SOM/output_data/*
