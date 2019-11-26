@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/dt/dt-1.10.10/datatables.min.css"/>
+<!-- Form
+================================================== -->
+
+<div class="container">
+	<h1>word2vec demo</h1>
+</div>
+<div class="form">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 well">
+				<form action="/similar/search" method="get" class="form-inline">
+					<label for="word">検索キーワード</label>
+					<input type="text" class="form-control" id="word" name="word" value={{word}}>
+					<label for="top">件数</label>
+					<input type="text" class="form-control" id="top" name="top" value={{top}}>
+					<button type="submit" class="btn btn-default">送信する</button>
+				</form>
+			</div>
+			<div class="col-sm-12">
+				{% if alert %}
+				<div class="alert alert-danger" role="alert">{{alert}}</div>
+				{% endif %}
+				{% if result %}
+				<div class="panel panel-default">
+					<div class="panel-heading">類似語一覧</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table id="feature" class="table table-bordered table-hover">
+								<tr>
+									<th>類似語</th>
+									<th>類似度</th>
+								</tr>
+								{% for r in result %}
+								<tr>
+									<td>{{r[0]}}</td>
+									<td>{{r[1]}}</td>
+								</tr>
+								{% endfor %}
+							</table>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
