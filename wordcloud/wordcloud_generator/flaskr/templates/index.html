@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<!-- Form
+================================================== -->
+
+<div class="container">
+	<h1>Wordcloud generator</h1>
+	<blockquote>
+		<p>Input text. And you can get a wordcloud.</p>
+	</blockquote>
+	<hr>
+
+	<form action="/post" method="post" class="form-inline">
+		<label for="inputtext">Input text</label>
+		<input type="text" class="form-control input-lg" id="inputtext" name="inputtext" placeholder="Text">
+		<button type="submit" class="btn btn-default">Submit</button>
+	</form>
+
+{% if output_path %}
+	<img alt="wordcloud" src={{output_path}}>
+{% endif %}
+
+</div>
+{% endblock %}
